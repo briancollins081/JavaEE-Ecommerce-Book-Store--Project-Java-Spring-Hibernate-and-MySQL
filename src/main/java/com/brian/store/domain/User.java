@@ -1,13 +1,28 @@
 package com.brian.store.domain;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.brian.store.domain.security.Authority;
+import com.brian.store.domain.security.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class User {
+public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false, updatable = false, unique = true)
@@ -22,6 +37,12 @@ public class User {
 	private String email;
 	private String phone;
 	private boolean enable = true;
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonIgnore
+	private Set<UserRole> userRoles=new HashSet<UserRole>();
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -69,6 +90,37 @@ public class User {
 	}
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+	public Set<UserRole> getUserRole() {
+		return userRoles;
+	}
+	public void setUserRole(Set<UserRole> userRole) {
+		this.userRoles = userRole;
+	}
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		final Set<GrantedAuthority>authorities=new HashSet<GrantedAuthority>();
+		userRoles.forEach(new Consumer<UserRole>() {
+			public void accept(UserRole ur) {
+				authorities.add(new Authority(ur.getRole().getName()));
+			}
+		});
+		return authorities;
+	}
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return enable;
 	}
 	
 	
