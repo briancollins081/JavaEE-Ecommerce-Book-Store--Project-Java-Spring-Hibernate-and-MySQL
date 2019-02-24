@@ -21,6 +21,7 @@ import com.brian.store.domain.security.Authority;
 import com.brian.store.domain.security.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 @Entity
 public class User implements UserDetails{
 	@Id
