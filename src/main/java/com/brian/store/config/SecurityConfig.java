@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.brian.store.service.impl.UserSecurityService;
 import com.brian.store.utility.SecurityUtility;
@@ -19,7 +18,6 @@ import com.brian.store.utility.SecurityUtility;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
-@EnableAutoConfiguration(exclude = { SecurityAutoConfiguration.class })
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private Environment env;
@@ -31,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			"/js/**",
 			"/img/**",
 			"/",
-			"/myAccount"
+			"/newUser",
+			"/forgetPassword"
 	};
 	
 	@Override
@@ -45,12 +44,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	/*@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
-		.authorizeRequests()
-		.antMatchers(PUBLIC_MATCHES)
-		.permitAll().anyRequest().authenticated();
+			.authorizeRequests().
+			//.antMatchers("/**").
+			.antMatchers(PUBLIC_MATCHERS).
+			permitAll().anyRequest().authenticated();
 		
-		http.csrf().disable().cors().disable()
+		http
+			.csrf().disable().cors().disable()
 			.formLogin().failureUrl("/login?error").defaultSuccessUrl("/")
+			.loginPage("/login").permitAll()
 			.and()
 			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/?logout").deleteCookies("remember-me").permitAll()

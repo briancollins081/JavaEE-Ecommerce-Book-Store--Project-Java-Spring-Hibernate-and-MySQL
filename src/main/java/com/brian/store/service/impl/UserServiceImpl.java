@@ -1,20 +1,65 @@
 package com.brian.store.service.impl;
 
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.brian.store.domain.User;
 import com.brian.store.domain.security.PasswordResetToken;
+import com.brian.store.domain.security.UserRole;
 import com.brian.store.service.UserService;
+import com.brian.store.service.repository.PasswordResetTokenRepository;
+import com.brian.store.service.repository.RoleRepository;
+import com.brian.store.service.repository.UserRepository;
 
-public class UserServiceImpl implements UserService{
+@Service
+public class UserServiceImpl implements UserService {
+	private static final Logger LOG=LoggerFactory.getLogger(UserService.class);
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private PasswordResetTokenRepository passwordResetTokenRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
 	@Override
 	public PasswordResetToken getPasswordResetToken(final String token) {
-		return passwordResetTokenRepository.finByToken(token);
+		return passwordResetTokenRepository.findByToken(token);
 	}
 
 	@Override
 	public void createPasswordResetTokenForUser(final User user, final String token) {
-		final PasswordResetToken myToken=new PasswordResetToken(token, user);
+		final PasswordResetToken myToken = new PasswordResetToken(token, user);
 		passwordResetTokenRepository.save(myToken);
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
+	public User createUser(User user, Set<UserRole> userRoles){
+		User localUser = userRepository.findByUsername(user.getUsername());
+		if (localUser != null) {
+			LOG.info("user{} already exists. Nothing will be done",user.getUsername());
+		} else {
+			for (UserRole ur : userRoles) {
+				roleRepository.save(ur.getRole());
+			}
+			user.getUserRole().addAll(userRoles);
+
+			localUser = userRepository.save(user);
+		}
+		return localUser;
 	}
 
 }

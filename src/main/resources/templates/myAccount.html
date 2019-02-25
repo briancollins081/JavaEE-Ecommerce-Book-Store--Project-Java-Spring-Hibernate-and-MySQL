@@ -27,7 +27,7 @@
 			<!-- Nav Tabs -->
 			<div class="col-md-9 col-md-offset-3">
 				<ul class="nav nav-tabs bg-danger">
-					<li th:classappend="${classActiveNewUser}? 'active'"><a href="#tab-1" data-toggle="tab"><span
+					<li th:classappend="${classActiveNewAccount}? 'active'"><a href="#tab-1" data-toggle="tab"><span
 							class="color-red">Create new account</span></a></li>
 					<li th:classappend="${classActiveLogin}? 'active'"><a href="#tab-2" data-toggle="tab"><span
 							class="color-red">Login</span></a></li>
@@ -42,7 +42,10 @@
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body"
 									style="background-color: #ededed; margin-top: 20px;">
-									<form action="#">
+									<div class="alert alert-info" th:if="${emailSent}">
+										An email has been sent to your email address you just registered. Pleas validate profile address and update your info
+									</div>
+									<form th:action="@{/newUser}" method="post">
 										<div class="form-group">
 											<label for="newUsername">* Username</label> <input
 												required="required" type="text" class="form-control"
