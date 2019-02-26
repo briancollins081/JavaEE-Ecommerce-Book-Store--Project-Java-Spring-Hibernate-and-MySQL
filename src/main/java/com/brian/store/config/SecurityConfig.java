@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.brian.store.service.impl.UserSecurityService;
 import com.brian.store.utility.SecurityUtility;
@@ -24,41 +25,51 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UserSecurityService userSecurityService;
 	
-	private static final String[] PUBLIC_MATCHES= {
+	private static final String[] PUBLIC_MATCHES= new String[]{
 			"/css/**",
 			"/js/**",
 			"/img/**",
+			"/fonts/**",
 			"/",
 			"/newUser",
-			"/forgetPassword"
+			"/forgetPassword",
+			"/login"
 	};
 	
-	@Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests().antMatchers(PUBLIC_MATCHES).permitAll();
-    }
+	
 	private BCryptPasswordEncoder passwordEncoder() {
 		return SecurityUtility.passwordEncoder();
 	}
 	
 	/*@Override
+    protected void configure(HttpSecurity http) throws Exception{
+        http
+        	.authorizeRequests()
+        	.antMatchers(PUBLIC_MATCHES)
+        	.permitAll();
+    }*/
+	
+	@Override
 	protected void configure(HttpSecurity http) throws Exception{
 		http
-			.authorizeRequests().
-			//.antMatchers("/**").
-			.antMatchers(PUBLIC_MATCHERS).
-			permitAll().anyRequest().authenticated();
+			.authorizeRequests()
+			.antMatchers(PUBLIC_MATCHES)
+			.permitAll()
+			.anyRequest()
+			.authenticated();
 		
 		http
 			.csrf().disable().cors().disable()
-			.formLogin().failureUrl("/login?error").defaultSuccessUrl("/")
+			.formLogin().failureUrl("/login?error")
 			.loginPage("/login").permitAll()
 			.and()
-			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.logoutSuccessUrl("/?logout").deleteCookies("remember-me").permitAll()
+			.logout()
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.logoutSuccessUrl("/?logout").deleteCookies("remember-me")
+			.permitAll()
 			.and()
 			.rememberMe();
-	}*/
+	}
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)throws Exception{
