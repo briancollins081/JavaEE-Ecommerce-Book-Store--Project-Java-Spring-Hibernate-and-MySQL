@@ -29,7 +29,7 @@ public class AbcBookstoreApplication implements CommandLineRunner{
 		user1.setLastName("Brian");
 		user1.setUsername("j");
 		user1.setPassword(SecurityUtility.passwordEncoder().encode("p"));
-		user1.setEmail("briancollins081@gmail.com");
+		user1.setEmail("briancollins091@gmail.com");
 		Set<UserRole> userRoles=new HashSet<>();
 		Role role1=new Role();
 		role1.setRoleid(1);

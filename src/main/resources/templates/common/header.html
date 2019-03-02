@@ -63,17 +63,20 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="#">Shopping Cart</a></li>
+						<li><a href="#"><i class="glyphicon glyphicon-shopping-cart ico-white"></i></a></li>
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">User Account<span class="caret"></span></a>
+							aria-expanded="false"><i class="glyphicon glyphicon-th ico-white"></i></a>
 							<ul class="dropdown-menu">
-								<li><a sec:authorize="isAnonymous()" th:href="@{/login}">Sign in</a></li>
+								<li><a sec:authorize="isAnonymous()" th:href="@{/login}"><i class="glyphicon glyphicon-log-in"></i>&nbsp;&nbsp;Sign
+										in</a></li>
 								<li><a sec:authorize="isAuthenticated()"
-									th:href="@{/myProfile}">Edit profile</a></li>
+									th:href="@{/myProfile}"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;My profile</a></li>
+								<li><a sec:authorize="isAuthenticated()"
+									th:href="@{/myProfile}"><i class="glyphicon glyphicon-pencil"></i>&nbsp;&nbsp;Edit profile</a></li>
 								<li role="separator" class="divider"></li>
 								<li><a sec:authorize="isAuthenticated()"
-									th:href="@{/logout}">Sign out</a></li>
+									th:href="@{/logout}"><i class="glyphicon glyphicon-log-out"></i>&nbsp;&nbsp;Sign out</a></li>
 							</ul>
 					</ul>
 				</div>
