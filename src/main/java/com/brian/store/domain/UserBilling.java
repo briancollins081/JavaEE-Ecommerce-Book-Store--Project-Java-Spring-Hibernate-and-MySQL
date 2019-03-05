@@ -12,7 +12,7 @@ public class UserBilling {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private String userBilllingName;
+	private String userBillingName;
 	private String userBillingStreet1;
 	private String userBillingStreet2;
 	private String userBillingCity;
@@ -31,12 +31,14 @@ public class UserBilling {
 		this.id = id;
 	}
 
-	public String getUserBilllingName() {
-		return userBilllingName;
+	
+
+	public String getUserBillingName() {
+		return userBillingName;
 	}
 
-	public void setUserBilllingName(String userBilllingName) {
-		this.userBilllingName = userBilllingName;
+	public void setUserBillingName(String userBillingName) {
+		this.userBillingName = userBillingName;
 	}
 
 	public String getUserBillingStreet1() {
