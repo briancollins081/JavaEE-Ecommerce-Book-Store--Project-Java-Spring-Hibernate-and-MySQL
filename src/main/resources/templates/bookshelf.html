@@ -11,7 +11,8 @@
 		<div class="row" style="margin-bottom: -100px;">
 			<div class="col-md-8">
 				<h2 class="section-headline">
-					<span th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Books'"></span>
+					<span
+						th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Books'"></span>
 				</h2>
 			</div>
 			<div class="col-md-4">
@@ -26,39 +27,61 @@
 		<div class="row" style="margin-top: 30px;">
 			<div class="col-md-9 col-md-offset-3">
 				<div th:if="${emptyList}">
-					<h5 style="font-style: italic;">Oops, no result is found. Try something else or try again later.</h5>
+					<h5 style="font-style: italic;">Oops, no result is found. Try
+						something else or try again later.</h5>
 				</div>
 				<table border="0" id="bookList">
-					<thead><tr><th></th></tr></thead>
+					<thead>
+						<tr>
+							<th></th>
+						</tr>
+					</thead>
 					<tbody>
-					<tr class="book-item" data-th-each="book:${bookList}">
-						<td>
-							<div th:if="${book!=null}">
-								<div class="row">
-								<div class="col-sm-2">
-									<a th:href="@{/bookDetail?id=}+${book.id}"><img alt="Book Image" class="img-responsive shelf-book" th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${book.id}+'.jpg'" /></a>
+						<tr class="book-item" data-th-each="book:${bookList}">
+
+							<td>
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<div th:if="${book!=null}">
+											<div class="row">
+												<div class="col-sm-3">
+													<div class="panel panel-default">
+														<div class="panel-body">
+															<a th:href="@{/bookDetail?id=}+${book.id}"><img
+																alt="Book Image"
+																class="img-responsive shelf-book center-block"
+																th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${book.id}+'.jpg'" /></a>
+														</div>
+													</div>
+												</div>
+												<div class="col-sm-9">
+													<a th:href="@{/bookDetail?id=}+${book.id}"><h4
+															th:text="${book.title}"></h4></a> <span
+														th:text="${book.publicationDate}"></span>
+													<p th:text="${book.author}"></p>
+													<a th:href="@{/bookDetail?id=}+${book.id}"><span
+														th:text="${#strings.capitalize(book.format)}"></span></a> <span
+														th:text="${book.numberOfPages}"><span> pages</span></span><br />
+													<a th:href="@{/bookDetail?id=}+${book.id}"><span
+														style="font-size: x-large; color: #db3208;">$ <span
+															th:text="${#numbers.formatDecimal(book.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span></span></a>
+													<span style="text-decoration: line-through;">$ <span
+														th:text="${#numbers.formatDecimal(book.listPrice, 0, 'COMMA', 2, 'POINT')}"></span></span>
+													<p th:utext="${#strings.abbreviate(book.description, 500)}"></p>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="col-sm-10">
-									<a th:href="@{/bookDetail?id=}+${book.id}"><h4 th:text="${book.title}"></h4></a>
-									<span th:text="${book.publicationDate}"></span>
-									<span th:text="${book.author}"></span>
-									<a th:href="@{/bookDetail?id=}+${book.id}"><span th:text="${#strings.capitalize(book.format)}"></span></a>
-									<span th:text="${book.numberOfPages}"><span> pages</span></span>
-									<a th:href="@{/bookDetail?id=}+${book.id}"><span style="font-size: x-large; color: #db3208;">$ <span th:text="${#numbers.formatDecimal(book.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span></span></a>
-									<span style="text-decoration: line-through;">$ <span th:text="${#numbers.formatDecimal(book.listPrice, 0, 'COMMA', 2, 'POINT')}"></span></span>
-									<p th:text="${#strings.abbreviate(book.description, 500)}"></p>
-								</div>
-								</div>
-							</div>
-						</td>
-					</tr>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		</div>
-		<!-- end of main container -->
+	</div>
+	<!-- end of main container -->
 
-		<div th:replace="common/header :: body-bottom-scripts"></div>
+	<div th:replace="common/header :: body-bottom-scripts"></div>
 </body>
 </html>

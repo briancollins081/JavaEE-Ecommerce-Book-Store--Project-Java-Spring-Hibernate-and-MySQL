@@ -2,10 +2,10 @@ package com.brian.store.controller;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.brian.store.domain.Book;
 import com.brian.store.domain.User;
+import com.brian.store.domain.UserShipping;
 import com.brian.store.domain.security.PasswordResetToken;
 import com.brian.store.domain.security.Role;
 import com.brian.store.domain.security.UserRole;
@@ -36,6 +37,7 @@ import com.brian.store.service.UserService;
 import com.brian.store.service.impl.UserSecurityService;
 import com.brian.store.utility.MailConstructor;
 import com.brian.store.utility.SecurityUtility;
+import com.brian.store.utility.USConstants;
 
 @Controller
 public class HomeController {
@@ -68,6 +70,29 @@ public class HomeController {
 		List<Book> bookList=bookService.findAll();
 		model.addAttribute("bookList",bookList);
 		return "bookshelf";
+	}
+	
+	@RequestMapping("/myProfile")
+	public String myProfile(Model model,Principal principal) {
+		User user=userService.findByUsername(principal.getName());
+		model.addAttribute("user",user);
+		model.addAttribute("userPayment", user.getUserPaymentList());
+		model.addAttribute("userShippingList", user.getUserShippingList());
+		//model.addAttribute("orderList", user.getOrderList());
+		
+		UserShipping userShipping=new UserShipping();
+		model.addAttribute("userShipping",userShipping);
+		
+		model.addAttribute("listOfCreditCards", true);
+		model.addAttribute("listOfShippingAddresses", true);
+		
+		List<String> stateList=USConstants.listOfUSStatesCode;
+		Collections.sort(stateList);
+		model.addAttribute("stateList",stateList);
+		model.addAttribute("classActivatedEdit",true);
+		
+		
+		return "myProfile";
 	}
 	
 	@RequestMapping("/bookDetail")

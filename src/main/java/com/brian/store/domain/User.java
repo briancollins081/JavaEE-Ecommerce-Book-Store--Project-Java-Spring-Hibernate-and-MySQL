@@ -2,6 +2,7 @@ package com.brian.store.domain;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -38,6 +39,12 @@ public class User implements UserDetails{
 	private String email;
 	private String phone;
 	private boolean enable = true;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private List<UserShipping> userShippingList;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private List<UserPayment> userPaymentList;
 	
 	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonIgnore
@@ -98,6 +105,25 @@ public class User implements UserDetails{
 	public void setUserRole(Set<UserRole> userRole) {
 		this.userRoles = userRole;
 	}
+	
+	public List<UserShipping> getUserShippingList() {
+		return userShippingList;
+	}
+	public void setUserShippingList(List<UserShipping> userShippingList) {
+		this.userShippingList = userShippingList;
+	}
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+	public void setUserPaymentList(List<UserPayment> userPaymentList) {
+		this.userPaymentList = userPaymentList;
+	}
+	public List<UserPayment> getUserPaymentList() {
+		return userPaymentList;
+	}
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		final Set<GrantedAuthority>authorities=new HashSet<GrantedAuthority>();
 		userRoles.forEach(new Consumer<UserRole>() {
@@ -123,6 +149,4 @@ public class User implements UserDetails{
 		// TODO Auto-generated method stub
 		return enable;
 	}
-	
-	
 }
