@@ -3,6 +3,8 @@ package com.brian.store.service;
 import java.util.Set;
 
 import com.brian.store.domain.User;
+import com.brian.store.domain.UserBilling;
+import com.brian.store.domain.UserPayment;
 import com.brian.store.domain.security.PasswordResetToken;
 import com.brian.store.domain.security.UserRole;
 
@@ -18,4 +20,6 @@ public interface UserService {
 	User createUser(User user, Set<UserRole> userRoles);
 
 	User save(User user);
+
+	void updateUserBilling(UserBilling userBilling, UserPayment userPayment, User user);
 }
