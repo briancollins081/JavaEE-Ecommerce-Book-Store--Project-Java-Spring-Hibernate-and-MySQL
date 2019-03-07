@@ -1,5 +1,6 @@
 package com.brian.store.service.impl;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import com.brian.store.domain.security.UserRole;
 import com.brian.store.service.UserService;
 import com.brian.store.service.repository.PasswordResetTokenRepository;
 import com.brian.store.service.repository.RoleRepository;
+import com.brian.store.service.repository.UserPaymentRepository;
 import com.brian.store.service.repository.UserRepository;
 
 @Service
@@ -26,7 +28,9 @@ public class UserServiceImpl implements UserService {
 	private PasswordResetTokenRepository passwordResetTokenRepository;
 	@Autowired
 	private RoleRepository roleRepository;
-
+	@Autowired
+	private UserPaymentRepository userPaymentRepository;
+	
 	@Override
 	public PasswordResetToken getPasswordResetToken(final String token) {
 		return passwordResetTokenRepository.findByToken(token);
@@ -77,6 +81,20 @@ public class UserServiceImpl implements UserService {
 		userBilling.setUserPayment(userPayment);
 		user.getUserPaymentList().add(userPayment);
 		save(user);
+	}
+
+	@Override
+	public void setDefaultPayment(Long defaultPaymentId, User user) {
+		List<UserPayment>userPaymentList=(List<UserPayment>)userPaymentRepository.findAll();
+		for (UserPayment userPayment : userPaymentList) {
+			if(userPayment.getId()==defaultPaymentId) {
+				userPayment.setDefaultPayment(true);
+				userPaymentRepository.save(userPayment);
+			}else {
+				userPayment.setDefaultPayment(false);
+				userPaymentRepository.save(userPayment); 
+			}
+		}
 	}
 
 }
