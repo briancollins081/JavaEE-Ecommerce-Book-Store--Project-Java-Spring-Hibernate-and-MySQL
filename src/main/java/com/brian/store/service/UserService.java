@@ -5,6 +5,7 @@ import java.util.Set;
 import com.brian.store.domain.User;
 import com.brian.store.domain.UserBilling;
 import com.brian.store.domain.UserPayment;
+import com.brian.store.domain.UserShipping;
 import com.brian.store.domain.security.PasswordResetToken;
 import com.brian.store.domain.security.UserRole;
 
@@ -24,4 +25,6 @@ public interface UserService {
 	void updateUserBilling(UserBilling userBilling, UserPayment userPayment, User user);
 
 	void setDefaultPayment(Long defaultPaymentId, User user);
+
+	void updateUserShipping(UserShipping userShipping, User user);
 }

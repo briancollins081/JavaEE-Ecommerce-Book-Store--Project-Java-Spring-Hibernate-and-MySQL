@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.brian.store.domain.User;
 import com.brian.store.domain.UserBilling;
 import com.brian.store.domain.UserPayment;
+import com.brian.store.domain.UserShipping;
 import com.brian.store.domain.security.PasswordResetToken;
 import com.brian.store.domain.security.UserRole;
 import com.brian.store.service.UserService;
@@ -95,6 +96,14 @@ public class UserServiceImpl implements UserService {
 				userPaymentRepository.save(userPayment); 
 			}
 		}
+	}
+
+	@Override
+	public void updateUserShipping(UserShipping userShipping, User user) {
+		userShipping.setUser(user);
+		userShipping.setUserShippingDefault(true);
+		user.getUserShippingList().add(userShipping);
+		save(user);
 	}
 
 }
