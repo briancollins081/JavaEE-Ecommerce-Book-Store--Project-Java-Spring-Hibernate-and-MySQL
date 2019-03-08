@@ -19,6 +19,7 @@ import com.brian.store.service.repository.PasswordResetTokenRepository;
 import com.brian.store.service.repository.RoleRepository;
 import com.brian.store.service.repository.UserPaymentRepository;
 import com.brian.store.service.repository.UserRepository;
+import com.brian.store.service.repository.UserShippingRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,7 +32,8 @@ public class UserServiceImpl implements UserService {
 	private RoleRepository roleRepository;
 	@Autowired
 	private UserPaymentRepository userPaymentRepository;
-	
+	@Autowired
+	private UserShippingRepository userShippingRepository;
 	@Override
 	public PasswordResetToken getPasswordResetToken(final String token) {
 		return passwordResetTokenRepository.findByToken(token);
@@ -104,6 +106,20 @@ public class UserServiceImpl implements UserService {
 		userShipping.setUserShippingDefault(true);
 		user.getUserShippingList().add(userShipping);
 		save(user);
+	}
+
+	@Override
+	public void setDefaultShipping(Long userShippingId, User user) {
+		List<UserShipping>userShippingList=(List<UserShipping>)userShippingRepository.findAll();
+		for (UserShipping userShipping : userShippingList) {
+			if(userShipping.getId()==userShippingId) {
+				userShipping.setUserShippingDefault(true);
+				userShippingRepository.save(userShipping);
+			}else {
+				userShipping.setUserShippingDefault(false);
+				userShippingRepository.save(userShipping);
+			}
+		}
 	}
 
 }
