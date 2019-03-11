@@ -45,22 +45,23 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Contact</a></li>
 						<li class="dropdown"><a th:href="@{/bookshelf}"
 							class="dropdown-toggle" data-toggle="dropdown" role="button"
 							aria-haspopup="true" aria-expanded="false">Books <span
 								class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a th:href="@{/bookshelf}">Browse the bookshelf</a></li>
-								<li><a href="#">Store hours &#38; Directions</a></li>
-								<li><a href="#">FAQ</a></li>
-								<li role="separator" class="divider"></li>
-								<li class="dropdown-header">Editors Choice</li>
+								<li class="dropdown-header"><i class="fa fa-book"></i><span>&nbsp;&nbsp;Books</span></li>
+								<li><a th:href="@{/bookshelf}">Browse the Bookshelf</a></li>
+								<li class="dropdown-header"><i class="fa fa-star-half-full"></i><span>&nbsp;&nbsp;Editors Choice</span></li>
 								<li><a href="#">Top 10</a></li>
 								<li><a href="#">Highly Reviewed</a></li>
 								<li><a href="#">Editors Shelf</a></li>
+								<li class="dropdown-header"><i class="fa fa-info-circle"></i><span>&nbsp;&nbsp;More Information</span></li>
+								<li><a href="#">Store Hours &#38; Directions</a></li>
+								<li><a href="#">FAQ</a></li>
 							</ul></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Contact</a></li>
 						<li>
 							<form class="navbar-form" action="#">
 								<div class="form-group">
@@ -108,7 +109,7 @@
 			type="text/javascript"></script>
 		<script th:src="@{/js/dataTables.bootstrap.min.js}"
 			type="text/javascript"></script>
-		
+
 	</div>
 </body>
 </html>
