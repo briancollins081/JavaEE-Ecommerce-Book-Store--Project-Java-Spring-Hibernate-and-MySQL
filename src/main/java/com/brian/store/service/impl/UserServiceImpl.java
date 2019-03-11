@@ -1,5 +1,6 @@
 package com.brian.store.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -7,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.brian.store.domain.ShoppingCart;
 import com.brian.store.domain.User;
 import com.brian.store.domain.UserBilling;
 import com.brian.store.domain.UserPayment;
@@ -56,6 +59,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public User createUser(User user, Set<UserRole> userRoles){
 		User localUser = userRepository.findByUsername(user.getUsername());
 		if (localUser != null) {
@@ -65,7 +69,14 @@ public class UserServiceImpl implements UserService {
 				roleRepository.save(ur.getRole());
 			}
 			user.getUserRole().addAll(userRoles);
-
+			
+			ShoppingCart shoppingCart=new ShoppingCart();
+			shoppingCart.setUser(user);
+			user.setShoppingCart(shoppingCart);
+			
+			user.setUserShippingList(new ArrayList<UserShipping>());
+			user.setUserPaymentList(new ArrayList<UserPayment>());
+			
 			localUser = userRepository.save(user);
 		}
 		return localUser;
