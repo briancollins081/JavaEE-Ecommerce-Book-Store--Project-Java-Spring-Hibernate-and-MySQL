@@ -24,36 +24,36 @@
 			style="position: absolute; width: 98%; height: 6px; background-color: #333; z-index: -1; margin-top: 25px;" />
 		<img alt="Separator" src="/img/wood.png" class="img-responsive"
 			style="margin-top: -75px;" />
+
 		<div class="container">
 			<div class="row" style="margin-top: 10px;">
 				<div class="col-sm-12">
 					<div class="row">
 						<div class="col-sm-6 text-left">
-							<a class="btn btn-primary" th:href="@{/bookshelf}">Continue
+							<a class="btn btn-warning" th:href="@{/bookshelf}">Continue
 								Shopping</a>
 						</div>
 						<div class="col-sm-6 text-right">
-							<a class="btn btn-primary"
+							<a class="btn btn-danger"
 								th:href="@{/checkout(id=${shoppingCart.id})}">Check Out</a>
 						</div>
 						<br />
-						<div th:if="${notEnoughStock}" class="alert alert-warning">
+						<div th:if="${notEnoughInStock}" class="alert alert-warning">
 							Oops, some of the products don't have enough stock. Please update
 							product quantity.</div>
 						<div th:if="${emptyCart}" class="alert alert-warning">Oops,
 							your cart is empty. See if you can find what you like from our
 							book shelf and add the to your cart.</div>
-						<br />
-						<br />
+						<br /> <br />
 						<div class="row">
-							<div class="col-sm-8">
-								<h4>Products</h4>
+							<div class="col-sm-8 center-block">
+								<h5 class="text-center">Products</h5>
 							</div>
 							<div class="col-sm-2">
-								<h4>Price</h4>
+								<h5>Price</h5>
 							</div>
 							<div class="col-sm-2">
-								<h4>Qty</h4>
+								<h5>Qty</h5>
 							</div>
 						</div>
 
@@ -63,19 +63,29 @@
 								<hr />
 								<div class="col-sm-2">
 									<a th:href="@{bookDetail(id=${cartItem.book.id})}"> <img
-										alt="#" src="" class="img-responsive shelf-book"
-										th:src="#{adminPath}+@{/img/book/}+${cartItem.book.id}+'.jpg'" />
+										style="width: 70px;" alt="#" class="img-responsive shelf-book"
+										th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${cartItem.book.id}+'.jpg'" />
 									</a>
-									<p th:if="${cartItem.book.inStockNumber&gt;10}"
-										style="color: green;">In Stock</p>
-									<p
-										th:if="${cartItem.book.inStockNumber&lt;10 and cartItem.book.inStockNumber&gt;0}"
-										style="color: green;">
-										Only <span th:text="${cartItem.book.inStockNumber"></span> In
-										Stock
-									</p>
-									<p th:if="${cartItem.book.inStockNumber==0}"
-										style="color: darkred">Product Unavailable</p>
+								</div>
+								<div class="col-sm-6">
+									<div style="margin-left: 50px;">
+										<a th:href="@{/bookDetail?id=}+${cartItem.book.id}">
+											<h4 style="display: inline;" th:text="${cartItem.book.title}"></h4>
+										</a>
+										<p th:if="${cartItem.book.inStockNumber&gt;10}"
+											style="color: green;">In Stock</p>
+										<p
+											th:if="${cartItem.book.inStockNumber&lt;10 and cartItem.book.inStockNumber&gt;0}"
+											style="color: green;">
+											Only <span th:text="${cartItem.book.inStockNumber}"></span>
+											In Stock
+										</p>
+										<p th:if="${cartItem.book.inStockNumber==0}"
+											style="color: darkred">Product Unavailable</p>
+										<p>
+											<a th:href="@{/shoppingCart/removeItem?id=}+${cartItem.id}">Delete</a>
+										</p>
+									</div>
 								</div>
 								<div class="col-sm-2">
 									<h5 style="color: #db3208; font-size: large;">
@@ -88,7 +98,8 @@
 									<input hidden="hidden" name="id" th:value="${cartItem.id}" />
 									<input th:id="${cartItem.id}" th:name="qty"
 										th:disabled="${cartItem.book.inStockNumber==0}"
-										class="form-control cartItemQty" th:value="${cartItem.qty}" />
+										class="form-control cartItemQty" th:value="${cartItem.qty}" /> 
+										<br /><hr />
 									<button style="display: none;"
 										th:id="'update-item-'+${cartItem.id}" type="submit"
 										class="btn btn-warning btn-xs">Update</button>
@@ -99,7 +110,7 @@
 							<hr />
 							<h4 class="col-sm-12 text-right">
 								<strong style="font-size: large;">Total Price (<span
-									th:text="${#lists.size(cartItemList)}"></span> items):
+									th:text="${#lists.size(cartItemList)}"></span>) items:
 								</strong><span style="color: #db3208; font-size: large;">$<span
 									th:text="${shoppingCart.grandTotal}"></span></span>
 							</h4>

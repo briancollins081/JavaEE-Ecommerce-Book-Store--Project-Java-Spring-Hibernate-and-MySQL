@@ -10,6 +10,17 @@ hr {
 	background-color: #6f6f6f;
 }
 
+.hr-logo {
+	position: absolute;
+	width: 98%;
+	height: 6px;
+	background-color: #333;
+	z-index: -1;
+	margin-top: 25px;
+}
+.text-align-center{
+	text-align: center;
+}
 .hr-featured-books {
 	margin-top: -15px;
 	height: 1.5px;
@@ -54,7 +65,7 @@ hr {
 	padding: 5px 22px;
 }
 
-.section-headline{
+.section-headline {
 	font-family: 'Times New Roman', 'Times', serif;
 	font-size: 24px;
 	color: #fff;
@@ -62,32 +73,41 @@ hr {
 	text-align: center;
 	margin-top: 90px;
 }
+
 .section-headline span {
 	background-color: #231F20;
 	padding: 5px 22px;
 }
-.ico-red,.color-red{
+
+.ico-red, .color-red {
 	color: #f46b42;
 }
-.ico-white{
-	color:white;
+
+.ico-white {
+	color: white;
 }
-.ico-white:hover{
+
+.ico-white:hover {
 	color: #ff4d4d;
 }
-.shelf-book{
+
+.shelf-book {
 	
 }
-.dropdown-menu > li > i.fa {
+
+.dropdown-menu>li>i.fa {
 	color: #f46b42;
-	padding-top:0;
-	padding-bottom:0;
+	padding-top: 0;
+	padding-bottom: 0;
 	margin-top: 0;
 	margin-bottom: 0;
-	
 }
-.dropdown-menu > li > span, .dropdown-menu > li.divider{
+
+.dropdown-menu>li>span, .dropdown-menu>li.divider {
 	font-style: italic;
-	font-size:smaller;
+	font-size: smaller;
 	font-weight: bold !important;
+}
+.list-group > .list-group-item>a.btn{
+	text-align: left !important;
 }

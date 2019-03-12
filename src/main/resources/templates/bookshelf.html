@@ -25,58 +25,106 @@
 		<img alt="Separator" src="/img/wood.png" class="img-responsive"
 			style="margin-top: -75px;" />
 		<div class="row" style="margin-top: 30px;">
-			<div class="col-md-9 col-md-offset-3">
-				<div th:if="${emptyList}">
-					<h5 style="font-style: italic;">Oops, no result is found. Try
-						something else or try again later.</h5>
-				</div>
-				<table border="0" id="bookList">
-					<thead>
-						<tr>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="book-item" data-th-each="book:${bookList}">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-3">
+									<ul class="list-group">
+										<li class="list-group-item">Find by category:</li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Management Category</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Fiction Category</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Adventure Category</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Engineering Category</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Programming Category</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">All Categories</a></li>
+									</ul>
+									<hr />
+									<ul class="list-group">
+										<li class="list-group-item">Filter books by:</li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">English Language</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Swahili Language</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Italian Language</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">Spanish Language</a></li>
+										<li class="list-group-item"><a href=""
+											class="btn btn-default btn-block">All Languages</a></li>
+									</ul>
 
-							<td>
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<div th:if="${book!=null}">
-											<div class="row">
-												<div class="col-sm-3">
+								</div>
+								<div class="col-sm-8">
+									<div th:if="${emptyList}">
+										<h5 style="font-style: italic;">Oops, no result is found.
+											Try something else or try again later.</h5>
+									</div>
+									<table border="0" id="bookList">
+										<thead>
+											<tr>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="book-item" data-th-each="book:${bookList}">
+
+												<td>
 													<div class="panel panel-default">
 														<div class="panel-body">
-															<a th:href="@{/bookDetail?id=}+${book.id}"><img
-																alt="Book Image"
-																class="img-responsive shelf-book center-block"
-																th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${book.id}+'.jpg'" /></a>
+															<div th:if="${book!=null}">
+																<div class="row">
+																	<div class="col-sm-3">
+																		<div class="panel panel-default">
+																			<div class="panel-body">
+																				<a th:href="@{/bookDetail?id=}+${book.id}"><img
+																					alt="Book Image"
+																					class="img-responsive shelf-book center-block"
+																					th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${book.id}+'.jpg'" /></a>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col-sm-9">
+																		<a th:href="@{/bookDetail?id=}+${book.id}"><h4
+																				th:text="${book.title}"></h4></a> <span
+																			th:text="${book.publicationDate}"></span>
+																		<p th:text="${book.author}"></p>
+																		<a th:href="@{/bookDetail?id=}+${book.id}"><span
+																			th:text="${#strings.capitalize(book.format)}"></span></a>
+																		<span th:text="${book.numberOfPages}"><span>
+																				pages</span></span><br /> <a
+																			th:href="@{/bookDetail?id=}+${book.id}"><span
+																			style="font-size: x-large; color: #db3208;">$
+																				<span
+																				th:text="${#numbers.formatDecimal(book.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span>
+																		</span></a> <span style="text-decoration: line-through;">$
+																			<span
+																			th:text="${#numbers.formatDecimal(book.listPrice, 0, 'COMMA', 2, 'POINT')}"></span>
+																		</span>
+																		<p
+																			th:utext="${#strings.abbreviate(book.description, 500)}"></p>
+																	</div>
+																</div>
+															</div>
 														</div>
 													</div>
-												</div>
-												<div class="col-sm-9">
-													<a th:href="@{/bookDetail?id=}+${book.id}"><h4
-															th:text="${book.title}"></h4></a> <span
-														th:text="${book.publicationDate}"></span>
-													<p th:text="${book.author}"></p>
-													<a th:href="@{/bookDetail?id=}+${book.id}"><span
-														th:text="${#strings.capitalize(book.format)}"></span></a> <span
-														th:text="${book.numberOfPages}"><span> pages</span></span><br />
-													<a th:href="@{/bookDetail?id=}+${book.id}"><span
-														style="font-size: x-large; color: #db3208;">$ <span
-															th:text="${#numbers.formatDecimal(book.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span></span></a>
-													<span style="text-decoration: line-through;">$ <span
-														th:text="${#numbers.formatDecimal(book.listPrice, 0, 'COMMA', 2, 'POINT')}"></span></span>
-													<p th:utext="${#strings.abbreviate(book.description, 500)}"></p>
-												</div>
-											</div>
-										</div>
-									</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

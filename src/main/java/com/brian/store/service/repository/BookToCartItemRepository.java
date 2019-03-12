@@ -1,16 +1,16 @@
 package com.brian.store.service.repository;
 
-import java.util.List;
+
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.brian.store.domain.BookToCartItem;
 import com.brian.store.domain.CartItem;
-import com.brian.store.domain.ShoppingCart;
 
 @Transactional
-public interface CartItemRepository extends CrudRepository<CartItem, Long>{
+public interface BookToCartItemRepository extends CrudRepository<BookToCartItem, Long>{
 
-	List<CartItem> findByShoppingCart(ShoppingCart shoppingCart);
-  
+	void deleteByCartItem(CartItem cartItem);
+
 }
