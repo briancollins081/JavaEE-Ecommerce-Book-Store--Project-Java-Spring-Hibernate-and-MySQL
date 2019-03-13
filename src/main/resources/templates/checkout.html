@@ -46,6 +46,15 @@
 							</div>
 
 							<div class="row">
+								<div class="col-sm-7 text-left">Estimated tax:</div>
+								<div class="col-sm-5 text-right">
+									$<span
+										th:with="tax=${shoppingCart.grandTotal*0.06}"
+										th:text="${#numbers.formatDecimal(total, 0, 2)}"></span>
+								</div>
+							</div>
+
+							<div class="row">
 								<div class="col-sm-7 text-left">
 									<h3 style="color: darkred;">
 										<strong>Order Total: </strong>
@@ -81,7 +90,7 @@
 										href="#shippingInfo"> 1. Shipping Address </a>
 								</h4>
 							</div>
-							<div id="shippingInfo" class="panel-collapse collapse"
+							<div id="shippingInfo" class="panel-collapse collapse in"
 								th:classappend="${classActiveShipping}? 'in'">
 								<div class="panel-body">
 									<table class="table" th:if="${not emptyShippingList}">
@@ -97,7 +106,7 @@
 													th:text="${userShipping.userShippingStreet1}+'  '+${userShipping.userShippingStreet2}+'  '+${userShipping.userShippingCity} +', '+${userShipping.userShippingState}">
 												</td>
 												<td><a
-													th:href="${/setShippingAddress(userShipping.id)}">use
+													th:href="@{/setShippingAddress(userShipping.id)}">use
 														this address</a></td>
 											</tr>
 										</tbody>
@@ -173,7 +182,7 @@
 								</h4>
 							</div>
 							<div id="paymentInfo" class="panel-collapse collapse"
-								th:classappend="{classActivePayment}? 'in'">
+								th:classappend="${classActivePayment}? 'in'">
 								<div class="panel-body">
 									<table class="table" th:if="${not emptyPaymentList}">
 										<thead>
@@ -186,7 +195,7 @@
 											<tr th:each="userPayment : ${userPaymentList}">
 												<td th:text="${userPayment.cardName}"></td>
 												<td><a
-													th:href="${/setPaymentMethod(userPaymentId=${userPayment.id})}">use
+													th:href="@{/setPaymentMethod(userPaymentId=${userPayment.id})}">use
 														this payment</a></td>
 											</tr>
 										</tbody>
@@ -211,7 +220,7 @@
 												<label for="cardHolder">* Card Holder Name:</label> <input
 													type="text" class="form-control" id="cardHolder"
 													required="required" placeholder="Card Holder Name"
-													th:name="holderName" th:value="${userPayment.holderName}" />
+													th:name="holderName" th:value="${payment.holderName}" />
 											</div>
 
 											<div class="form-group">
@@ -219,7 +228,7 @@
 												<div class="input-group">
 													<input type="tel" class="form-control" id="cardNumber"
 														required="required" placeholder="Valid Card Number"
-														th:name="cardNumber" th:value="${userPayment.cardNumber}" />
+														th:name="cardNumber" th:value="${payment.cardNumber}" />
 													<span class="input-group-addon"><i
 														class="fa fa-credit-card" aria-hidden="true"></i></span>
 												</div>
@@ -233,7 +242,7 @@
 												<div class="row">
 													<div class="col-sm-6">
 														<select class="form-control" name="expiryMonth"
-															required="required" th:value="${userPayment.expiryMonth}">
+															required="required" th:value="${payment.expiryMonth}">
 															<option disabled="disabled">--Month--</option>
 															<option value="01">Jan (01)</option>
 															<option value="02">Feb (02)</option>
@@ -252,7 +261,7 @@
 
 													<div class="col-sm-6">
 														<select class="form-control" name="expiryYear"
-															th:value="${userPayment.expiryYear}">
+															th:value="${payment.expiryYear}">
 															<option disabled="disabled">--Year--</option>
 															<option value="2019">2019</option>
 															<option value="2020">2020</option>
@@ -278,8 +287,7 @@
 											<div class="form-group">
 												<label for="cardCVC">CV Code</label> <input id="cardCVC"
 													type="tel" class="form-control" name="cardCVC"
-													placeholder="CVC" th:name="cvc"
-													th:value="${userPayment.cvc}" />
+													placeholder="CVC" th:name="cvc" th:value="${payment.cvc}" />
 											</div>
 										</div>
 									</div>
@@ -347,8 +355,107 @@
 											</div>
 										</div>
 										<a data-toggle="collapse" data-parent="#accordion"
-											class="btn btn-warning pull-right" href=#previewItems>Next</a>
+											class="btn btn-warning pull-right" href=#reviewItems>Next</a>
 									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 3. Review Items and Shipping -->
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion"
+										href="#reviewItems"> 3.Review Items and Shipping </a>
+								</h4>
+							</div>
+							<div id="reviewItems" class="panel-collapse collapse">
+								<div class="panel-body">
+									<h4>Choose your shipping method:</h4>
+									<div class="radio">
+										<label> <input type="radio" name="shippingMethod"
+											value="groundShipping" checked="checked" /> Ground Shipping
+										</label>
+									</div>
+
+									<div class="radio">
+										<label> <input type="radio" name="shippingMethod"
+											value="premiumShipping" /> Premium Shipping
+										</label>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-8">
+											<h4>Products</h4>
+										</div>
+										<div class="col-sm-2">
+											<h4>Price</h4>
+										</div>
+										<div class="col-sm-2">
+											<h4>Qty</h4>
+										</div>
+									</div>
+
+									<!-- Display products in cart -->
+
+									<div class="row" th:each="cartItem : ${cartItemList}">
+										<!-- <form th:action="@{/shoppingCart/updateCartItem}"
+											method="post"> -->
+										<hr />
+										<div class="col-sm-2">
+											<a th:href="@{/bookDetail(id=${cartItem.book.id})}"> <img
+												class="img-responsive shelf-book" alt="#"
+												th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${cartItem.book.id}+'.jpg'"
+												style="width: 70px;" />
+											</a>
+										</div>
+
+										<div class="col-sm-6">
+											<div style="margin-left: 50px;">
+												<a th:href="@{/bookDetail?id=}+${cartItem.book.id}">
+													<h4 style="display: inline;"
+														th:text="${cartItem.book.title}"></h4>
+												</a>
+												<p th:if="${cartItem.book.inStockNumber&gt;10}"
+													style="color: green;">In Stock</p>
+												<p
+													th:if="${cartItem.book.inStockNumber&lt;10 and cartItem.book.inStockNumber&gt;0}"
+													style="color: green;">
+													Only <span th:text="${cartItem.book.inStockNumber}"></span>
+													In Stock
+												</p>
+												<p th:if="${cartItem.book.inStockNumber==0}"
+													style="color: darkred">Product Unavailable</p>
+												<p>
+													<a th:href="@{/shoppingCart/removeItem?id=}+${cartItem.id}">Delete</a>
+												</p>
+											</div>
+										</div>
+										<div class="col-sm-2">
+											<h5 style="color: #db3208; font-size: large;">
+												$<span th:text="${cartItem.book.ourPrice}"
+													th:style="${cartItem.book.inStockNumber}==0? 'text-decoration: line-through;':''"></span>
+											</h5>
+										</div>
+
+										<div class="col-sm-2">
+											<h5 style="font-size: large;" th:text="${cartItem.qty}"></h5>
+										</div>
+										<!-- </form> -->
+									</div>
+									<hr />
+									<h4 class="col-sm-12 text-right">
+										<strong style="font-size: large;">Order Total (<span
+											th:text="${#lists.size(cartItemList)}"></span>) items:
+										</strong><span style="color: #db3208; font-size: large;">$<span
+											th:text="${shoppingCart.grandTotal}"></span></span>
+									</h4>
+									<br />
+									<button type="submit" class="btn btn-warning btn-block">Place
+										your order</button>
+									<p style="font-size: smaller;">
+										By placing your order, you agree to ABCBookstore's <a href="#">Privacy</a>
+										notice and <a href="#">Conditions</a> of use.
+									</p>
 								</div>
 							</div>
 						</div>

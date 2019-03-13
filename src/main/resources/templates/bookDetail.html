@@ -34,10 +34,17 @@
 						<input hidden="hidden" th:field="*{book.id}" />
 						<div class="row" style="margin-top: 30px;">
 							<div class="col-sm-3">
-								<a th:href="@{/bookshelf}">Back to book list</a><br /> <img
-									alt="Book Image"
-									th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${book.id}+'.jpg'"
-									class="img-responsive" />
+
+								<a th:href="@{/bookshelf}">Back to book list</a><br />
+
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<img alt="Book Image"
+											th:src="'http://localhost:8081/adminportal'+@{/img/book/}+${book.id}+'.jpg'"
+											class="img-responsive" />
+
+									</div>
+								</div>
 							</div>
 							<div class="col-sm-9">
 								<h3 th:text="${book.title}">Book Title</h3>
