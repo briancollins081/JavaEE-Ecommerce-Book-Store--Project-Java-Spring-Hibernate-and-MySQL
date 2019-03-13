@@ -24,7 +24,9 @@ public class Order {
 	private Date shippingDate;
 	private String shippingMethod;
 	private String shippingStatus;
+	private String orderStatus;
 	private BigDecimal orderTotal;
+	
 	
 	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
 	private List<CartItem> cartItemList;
@@ -37,6 +39,9 @@ public class Order {
 	
 	@ManyToOne
 	private User user;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private BillingAddress billingAddress;
 
 	public Long getId() {
 		return id;
@@ -78,6 +83,14 @@ public class Order {
 		this.shippingStatus = shippingStatus;
 	}
 
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
 	public BigDecimal getOrderTotal() {
 		return orderTotal;
 	}
@@ -117,6 +130,13 @@ public class Order {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
-	
+
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+		
 }
