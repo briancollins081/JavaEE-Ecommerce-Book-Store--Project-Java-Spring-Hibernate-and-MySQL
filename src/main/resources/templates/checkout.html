@@ -90,7 +90,7 @@
 										href="#shippingInfo"> 1. Shipping Address </a>
 								</h4>
 							</div>
-							<div id="shippingInfo" class="panel-collapse collapse in"
+							<div id="shippingInfo" class="panel-collapse collapse"
 								th:classappend="${classActiveShipping}? 'in'">
 								<div class="panel-body">
 									<table class="table" th:if="${not emptyShippingList}">
@@ -106,7 +106,7 @@
 													th:text="${userShipping.userShippingStreet1}+'  '+${userShipping.userShippingStreet2}+'  '+${userShipping.userShippingCity} +', '+${userShipping.userShippingState}">
 												</td>
 												<td><a
-													th:href="@{/setShippingAddress(userShipping.id)}">use
+													th:href="@{/setShippingAddress(userShippingId=${userShipping.id})}">use
 														this address</a></td>
 											</tr>
 										</tbody>
