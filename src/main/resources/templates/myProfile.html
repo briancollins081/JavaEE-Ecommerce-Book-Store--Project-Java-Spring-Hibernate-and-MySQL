@@ -46,7 +46,7 @@
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body"
 									style="background-color: #ededed; margin-top: 20px;">
-									<form action="@{/updateUserInfo}" method="post">
+									<form th:action="@{/updateUserInfo}" method="post">
 										<input type="hidden" name="id" th:value="${user.id}" />
 
 										<div class="bg-info" th:if="${updatedUserInfo}">User
@@ -73,8 +73,8 @@
 
 										<div class="form-group">
 											<label for="currentPassword">Current Password</label> <input
-												type="text" class="form-control" id="currentPassword"
-												name="currentPassword" th:value="${currentPassword}" />
+												type="password" class="form-control" id="currentPassword"
+												name="password" th:value="${currentPassword}" />
 										</div>
 										<p style="color: #828282;">Enter your current password to
 											change your email or password.</p>
@@ -91,7 +91,7 @@
 											password or wish to receive certain notification.</p>
 
 										<div class="form-group">
-											<label for="txtNewPassword">Password</label> <input
+											<label for="txtNewPassword">Password</label> &nbsp;<small id="checkPasswordMatch" style="color:darkRed; font-size: smaller;"></small> <input
 												type="password" class="form-control" id="txtNewPassword"
 												name="newPassword" />
 										</div>
@@ -103,8 +103,7 @@
 										<p style="color: #828282;">To change the current password,
 											enter the new password in both fields.</p>
 
-										<button type="submit" class="btn btn-danger">Create a
-											new account</button>
+										<button type="submit" class="btn btn-danger" id="updateUserInfoButton">Save All</button>
 									</form>
 								</div>
 							</div>
