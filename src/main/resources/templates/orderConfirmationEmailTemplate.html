@@ -25,8 +25,9 @@ table, th, td {
 </head>
 
 <body>
+
 	<p>
-		Dear <span th:text="${user.firstName"></span>,
+		Dear <span th:text="${user.firstName}"></span>,
 	</p>
 	<br />
 	<p>Thank you for shopping from ABC Bookstore, we hope you have a
@@ -51,7 +52,8 @@ table, th, td {
 			<tr>
 				<td><span th:text="${order.billingAddress.billingAddressName}"></span><br />
 					<span
-					th:text="${order.billingAddress.billingAddressName}+' '+${order.billingAddress.billingAddressStreet2}"></span><br />
+					th:text="${order.billingAddress.billingAddressStreet1}+
+					' '+${order.billingAddress.billingAddressStreet2}"></span><br />
 					<span th:text="${order.billingAddress.billingAddressCity}"></span><br />
 					<span th:text="${order.billingAddress.billingAddressState}"></span><br />
 					<span th:text="${order.billingAddress.billingAddressZipcode}"></span><br />
@@ -65,7 +67,7 @@ table, th, td {
 				<td><span
 					th:text="${order.shippingAddress.shippingAddressName}"></span><br />
 					<span
-					th:text="${order.shippingAddress.shippingAddressName}+' '+${order.shippingAddress.shippingAddressStreet2}"></span><br />
+					th:text="${order.shippingAddress.shippingAddressStreet1}+' '+${order.shippingAddress.shippingAddressStreet2}"></span><br />
 					<span th:text="${order.shippingAddress.shippingAddressCity}"></span><br />
 					<span th:text="${order.shippingAddress.shippingAddressState}"></span><br />
 					<span th:text="${order.shippingAddress.shippingAddressZipcode}"></span><br /></td>
@@ -87,10 +89,10 @@ table, th, td {
 		</thead>
 		<tbody>
 			<tr th:each="cartItem: ${cartItemList}">
-				<td><span data-th-text="#{cartItem.book.title}"></span></td>
-				<td class="text-center" data-th-text="#{cartItem.book.ourPrice}"></td>
-				<td class="text-center" data-th-text="#{cartItem.qty}"></td>
-				<td class="text-right" data-th-text="#{cartItem.book.subTotal}"></td>
+				<td><span data-th-text="${cartItem.book.title}"></span></td>
+				<td class="text-center" data-th-text="${cartItem.book.ourPrice}"></td>
+				<td class="text-center" data-th-text="${cartItem.qty}"></td>
+				<td class="text-right" data-th-text="${cartItem.subtotal}"></td>
 			</tr>
 
 			<tr>
@@ -123,7 +125,7 @@ table, th, td {
 
 	<p>Best,</p>
 	<p>ABC Bookstore</p>
-	<p>Since 1923</p>
+	<p>Since 2019</p>
 
 </body>
 </html>
