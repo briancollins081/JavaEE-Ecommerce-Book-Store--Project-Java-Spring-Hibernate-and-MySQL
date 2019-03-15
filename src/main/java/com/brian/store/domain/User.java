@@ -23,7 +23,6 @@ import com.brian.store.domain.security.Authority;
 import com.brian.store.domain.security.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@SuppressWarnings("serial")
 @Entity
 public class User implements UserDetails{
 	@Id
@@ -54,6 +53,8 @@ public class User implements UserDetails{
 	@JsonIgnore
 	private Set<UserRole> userRoles=new HashSet<UserRole>();
 	
+	@OneToMany(mappedBy="user")
+	private List<Order>orderList;
 	
 	public Long getId() {
 		return id;
@@ -159,5 +160,12 @@ public class User implements UserDetails{
 	public void setShoppingCart(ShoppingCart shoppingCart) {
 		this.shoppingCart = shoppingCart;
 	}
+	public List<Order> getOrderList() {
+		return orderList;
+	}
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
+	}
+	
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.brian.store.domain.Book;
 import com.brian.store.domain.CartItem;
+import com.brian.store.domain.Order;
 import com.brian.store.domain.ShoppingCart;
 import com.brian.store.domain.User;
 
@@ -20,5 +21,7 @@ public interface CartItemService {
 	void removeCartItem(CartItem findById);
 
 	CartItem save(CartItem cartItem);
+
+	List<CartItem> findByOrder(Order order);
 
 }

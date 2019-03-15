@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.brian.store.domain.Book;
 import com.brian.store.domain.BookToCartItem;
 import com.brian.store.domain.CartItem;
+import com.brian.store.domain.Order;
 import com.brian.store.domain.ShoppingCart;
 import com.brian.store.domain.User;
 import com.brian.store.service.CartItemService;
@@ -82,6 +83,12 @@ public class CartItemServiceImpl implements CartItemService {
 	@Override
 	public CartItem save(CartItem cartItem) {
 		return cartItemRepository.save(cartItem);
+	}
+
+	@Override
+	public List<CartItem> findByOrder(Order order) {
+		
+		return cartItemRepository.findByOrder(order);
 	}
 
 }
