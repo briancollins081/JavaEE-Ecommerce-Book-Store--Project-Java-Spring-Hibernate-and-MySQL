@@ -18,9 +18,11 @@ hr {
 	z-index: -1;
 	margin-top: 25px;
 }
-.text-align-center{
+
+.text-align-center {
 	text-align: center;
 }
+
 .hr-featured-books {
 	margin-top: -15px;
 	height: 1.5px;
@@ -108,6 +110,17 @@ hr {
 	font-size: smaller;
 	font-weight: bold !important;
 }
-.list-group > .list-group-item>a.btn{
+
+.list-group>.list-group-item>a.btn {
 	text-align: left !important;
+}
+
+.panel-warning>.panel-heading {
+	color: #fff;
+	background-color: #f0ad4e !important;
+	border-color: #eea236 !important;
+}
+.badge-danger{
+	background-color:#f46b42;
+	color:#fff;
 }

@@ -56,13 +56,14 @@ public class ShoppingCartController {
 		book = bookService.findOne(book.getId());
 
 		if (Integer.parseInt(qty) > book.getInStockNumber()) {
-			model.addAttribute("notEnoughInStock", true);
+			model.addAttribute("notEnoughStock", true);
 			return "forward:/bookDetail?id=" + book.getId();
 		}
 
 		CartItem cartItem = cartItemService.addBookToCartItem(book, user, Integer.parseInt(qty));
 		model.addAttribute("addBookSuccess", true);
-
+		
+		
 		return "forward:/bookDetail?id=" + book.getId();
 	}
 

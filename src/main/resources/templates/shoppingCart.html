@@ -28,6 +28,7 @@
 		<div class="container">
 			<div class="row" style="margin-top: 10px;">
 				<div class="col-sm-12">
+
 					<div class="row">
 						<div class="col-sm-6 text-left">
 							<a class="btn btn-warning" th:href="@{/bookshelf}">Continue
@@ -98,8 +99,9 @@
 									<input hidden="hidden" name="id" th:value="${cartItem.id}" />
 									<input th:id="${cartItem.id}" th:name="qty"
 										th:disabled="${cartItem.book.inStockNumber==0}"
-										class="form-control cartItemQty" th:value="${cartItem.qty}" /> 
-										<br /><hr />
+										class="form-control cartItemQty" th:value="${cartItem.qty}" />
+									<br />
+									<hr />
 									<button style="display: none;"
 										th:id="'update-item-'+${cartItem.id}" type="submit"
 										class="btn btn-warning btn-xs">Update</button>

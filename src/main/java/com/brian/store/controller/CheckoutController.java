@@ -81,6 +81,7 @@ public class CheckoutController {
 			@RequestParam(value = "missingRequiredField", required = false) boolean missingRequiredField, Model model,
 			Principal principal) {
 		User user = userService.findByUsername(principal.getName());
+		
 		if (cartId != user.getShoppingCart().getId()) {
 			return "badRequestPage";
 		}
@@ -146,6 +147,10 @@ public class CheckoutController {
 		if (missingRequiredField) {
 			model.addAttribute("missingRequiredField", true);
 		}
+		
+		int size=user.getShoppingCart().getCartItemList().size();
+		model.addAttribute("cartItemCount", size);
+		
 		return "checkout";
 	}
 
@@ -199,6 +204,8 @@ public class CheckoutController {
 		}
 
 		model.addAttribute("estimatedDeliveryDate", estimatedDeliveryDate);
+		int size=user.getShoppingCart().getCartItemList().size();
+		model.addAttribute("cartItemCount", size);
 
 		return "orderSubmittedPage";
 	}
@@ -242,6 +249,8 @@ public class CheckoutController {
 			}
 
 			model.addAttribute("emptyShippingList", true);
+			int size=user.getShoppingCart().getCartItemList().size();
+			model.addAttribute("cartItemCount", size);
 
 		}
 		return "checkout";
@@ -290,6 +299,8 @@ public class CheckoutController {
 				model.addAttribute("emptyShippingList", false);
 			}
 		}
+		int size=user.getShoppingCart().getCartItemList().size();
+		model.addAttribute("cartItemCount", size);
 		return "checkout";
 	}
 }
