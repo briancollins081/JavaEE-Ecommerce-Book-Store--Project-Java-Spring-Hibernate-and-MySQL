@@ -131,5 +131,22 @@
 	<!-- end of main container -->
 
 	<div th:replace="common/header :: body-bottom-scripts"></div>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					$('#bookList').DataTable(
+							{
+								"lengthMenu" : [ [ 5, 10, 15, 20, -1 ],
+										[ 5, 10, 15, 20, "All" ] ],
+								"ordering" : false,
+								"stateSave" : true
+							});
+					$("#bookList").on('page.at', function() {
+						$('html,body').animation({
+							scrollTop: $('#bookList').offset().top
+						}, 200);
+					});
+				});
+	</script>
 </body>
 </html>
