@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+
+	<div class="container-fluid">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-md-8">
+				<h2 class="section-headline">
+					<span>User Account</span>
+				</h2>
+			</div>
+			<div class="col-md-4">
+				<img alt="logo" src="/img/bookstorelogo.jpg" class="img-responsive">
+			</div>
+		</div>
+		<hr class="title-hr" />
+		<img alt="Separator" src="/img/wood.png" class="img-responsive"
+			style="margin-top: -75px;" />
+
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-sm-9 col-sm-offset-3">
+				<div class="panel panel-danger">
+					<div class="panel-body">
+						<h5>Bad request. The requested resource is not found. Click <a th:href="@{/}">home</a> to return to the Homepage</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of main container -->
+	<div th:replace="common/header :: footer"></div>
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

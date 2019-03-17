@@ -19,7 +19,7 @@
 				<img alt="logo" src="/img/bookstorelogo.jpg" class="img-responsive" />
 			</div>
 		</div>
-		<hr class="hr-logo" />
+		<hr class="title-hr" />
 		<img alt="Separator" src="/img/wood.png" class="img-responsive"
 			style="margin-top: -75px;" />
 		<div class="panel panel-default">
@@ -147,7 +147,8 @@
 		</div>
 	</div>
 	<!-- end of main container -->
-
+	<div th:replace="common/header :: footer"></div>
+	
 	<div th:replace="common/header :: body-bottom-scripts"></div>
 </body>
 </html>

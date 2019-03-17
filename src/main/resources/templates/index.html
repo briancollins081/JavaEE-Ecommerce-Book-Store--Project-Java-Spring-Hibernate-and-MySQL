@@ -8,7 +8,7 @@
 
 
 	<div class="container-fluid box">
-		<div class="row">
+		<div class="row banner">
 			<div class="col-xs-12 col-sm-8">
 
 				<div class="panel panel-default">
@@ -27,8 +27,7 @@
 								<div class="item active">
 									<img src="/img/carousel1.jpg" alt="..." />
 									<div class="carousel-caption">
-										<h1>Thumbnail 1</h1>
-										<p>Lorem Ipsum is simply dummy text of the printing and
+										<p>ABCBookstore Lorem Ipsum is simply dummy text of the printing and
 											typesetting industry.</p>
 									</div>
 								</div>
@@ -79,22 +78,22 @@
 			<div class="col-xs-6 col-sm-4">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<img alt="Best Seller" src="/img/bestseller.png"
-							class="img-responsive" />
+						<a th:href="@{/bookshelf}"><img alt="Best Seller" src="/img/bestseller.jpg"
+							class="img-responsive" /></a>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<img alt="Hours" src="/img/hours.png" class="img-responsive" />
+						<a th:href="@{/hours}"><img alt="Hours" src="/img/hours.jpg" class="img-responsive" /></a>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-6 col-sm-4">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<img alt="FAQ" src="/img/faq.png" class="img-responsive" />
+						<a th:href="@{/faq}"><img alt="FAQ" src="/img/faq.jpg" class="img-responsive" /></a>
 					</div>
 				</div>
 			</div>
@@ -211,6 +210,7 @@
 
 	</div>
 	<!-- end of main container -->
+	<div th:replace="common/header :: footer"></div>
 
 	<div th:replace="common/header :: body-bottom-scripts"></div>
 </body>

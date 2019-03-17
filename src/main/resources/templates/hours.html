@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+<body>
+	<div th:replace="common/header :: navbar"></div>
+
+
+	<div class="container-fluid">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-md-8">
+				<h2 class="section-headline">
+					<span>User Account</span>
+				</h2>
+			</div>
+			<div class="col-md-4">
+				<img alt="logo" src="/img/bookstorelogo.jpg" class="img-responsive">
+			</div>
+		</div>
+		<hr class="title-hr" />
+		<img alt="Separator" src="/img/wood.png" class="img-responsive"
+			style="margin-top: -75px;" />
+
+		<div class="row" style="margin-top: 10px;">
+			<div class="col-sm-3">
+				<div class="panel panel-danger">
+					<div class="panel-heading">
+						<div class="panel-title">Normal Days</div>
+					</div>
+					<div class="panel-body">
+						<p>We open our shops at 9am to 10pm in the evening.</p>
+						<p>This is the time we start handling any orders and requests from our clients</p>
+						<p>You can place your orders any time on this normal days and it will be processed within the first 24hrs.</p>
+					</div>
+				</div>
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<div class="panel-title">Holidays Days</div>
+					</div>
+					<div class="panel-body">
+						<p>On Holidays we mostly rely on our online system to pick all orders for the day. We open our shop from 10am - 10pm.</p>
+						<p>Although on some days we may close the store earlier. In these cases you can still access our services from the online system.</p>
+						<p>For online orders, you will get a customer care direct call to confirm your orders.</p>
+					</div>
+				</div>
+				<div class="panel panel-danger">
+					<div class="panel-heading">
+						<div class="panel-title">Offer Days</div>
+					</div>
+					<div class="panel-body">
+						<p>Keep your eyes open for new offers on top selling books.</p>
+						<p>Sometime vouchers might be advertised and added to the site for clients. Most vouchers appear during offer days for the store.</p>
+						<p>Ensure you subscribe to our newsletter to get updated on our daily offers.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<div class="panel panel-danger">
+				<div class="panel-heading">
+						<div class="panel-title">ABCBookstore Timings & Address.</div>
+					</div>
+					<div class="panel-body">
+						<img alt="our-hours-timings" src="/img/hours.jpg"
+							class="img-responsive" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of main container -->
+	<div th:replace="common/header :: footer"></div>
+
+	<div th:replace="common/header :: body-bottom-scripts"></div>
+</body>
+</html>

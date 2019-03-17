@@ -81,7 +81,17 @@ public class HomeController {
 		model.addAttribute("classActiveLogin", true);
 		return "myAccount";
 	}
-
+	
+	@RequestMapping("/hours")
+	public String hours(Model model) {
+		return "hours";
+	}
+	
+	@RequestMapping("/faq")
+	public String faq(Model model) {
+		return "faq";
+	}
+	
 	@RequestMapping("/bookshelf")
 	public String bookshelf(Model model) {
 		List<Book> bookList = bookService.findAll();

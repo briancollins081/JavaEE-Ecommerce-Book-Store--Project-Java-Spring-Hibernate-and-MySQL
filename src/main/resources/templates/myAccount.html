@@ -19,8 +19,7 @@
 			</div>
 		</div>
 
-		<hr
-			style="position: absolute; width: 98%; height: 6px; background-color: #333; z-index: -1; margin-top: 25px;" />
+		<hr class="title-hr" />
 		<img alt="Separator" src="/img/wood.png" class="img-responsive"
 			style="margin-top: -75px;" />
 		<div class="row" style="margin-top: 30px;">
@@ -87,9 +86,8 @@
 							<div class="panel panel-default" style="border: none;">
 								<div class="panel-body"
 									style="background-color: #ededed; margin-top: 20px;">
-									<div th:if="${param.error != null}" style="color:red;">
-										Incorrect username or password!
-									</div>
+									<div th:if="${param.error != null}" style="color: red;">
+										Incorrect username or password!</div>
 									<form th:action="@{/login}" method="post">
 										<div class="form-group">
 											<label for="username">* Username: </label> <input
@@ -122,11 +120,10 @@
 								<div class="panel-body"
 									style="background-color: #ededed; margin-top: 20px;">
 									<div th:if="${emailNotExist}" class="alert alert-danger">
-										Email doesn't exist!
-									</div>
-									<div th:if="${forgetPasswordEmailSent}" class="alert alert-success">
-										Email recovery email sent. Check your inbox or spam folder.
-									</div>
+										Email doesn't exist!</div>
+									<div th:if="${forgetPasswordEmailSent}"
+										class="alert alert-success">Email recovery email sent.
+										Check your inbox or spam folder.</div>
 									<form th:action="@{/forgetPassword}" method="post">
 										<div class="form-group">
 											<label for="recoveryEmail">* Your Email: </label> <input
@@ -149,6 +146,7 @@
 
 	</div>
 	<!-- end of main container -->
+	<div th:replace="common/header :: footer"></div>
 
 	<div th:replace="common/header :: body-bottom-scripts"></div>
 </body>

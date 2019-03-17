@@ -20,8 +20,7 @@
 			</div>
 		</div>
 
-		<hr
-			style="position: absolute; width: 98%; height: 6px; background-color: #333; z-index: -1; margin-top: 25px;" />
+		<hr class="title-hr" />
 		<img alt="Separator" src="/img/wood.png" class="img-responsive"
 			style="margin-top: -75px;" />
 		<div class="row" style="margin-top: 30px;">
@@ -31,33 +30,34 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-3">
-									<ul class="list-group">
+									<h3><label for="category">Category</label></h3>
+									<ul class="list-group" id="category">
 										<li class="list-group-item">Find by category:</li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByCategory(category='Management')}" th:classappend="${activeManagement}? 'active'"
 											class="btn btn-default btn-block">Management Category</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByCategory(category='Fiction')}" th:classappend="${activeFiction}? 'active'"
 											class="btn btn-default btn-block">Fiction Category</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByCategory(category='Adventure')}" th:classappend="${activeAdventure}? 'active'"
 											class="btn btn-default btn-block">Adventure Category</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByCategory(category='Engineering')}" th:classappend="${activeEngineering}? 'active'"
 											class="btn btn-default btn-block">Engineering Category</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByCategory(category='Programming')}" th:classappend="${activeProgramming}? 'active'"
 											class="btn btn-default btn-block">Programming Category</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/bookshelf(category='all')}" th:classappend="${activeAll}? 'active'"
 											class="btn btn-default btn-block">All Categories</a></li>
 									</ul>
 									<hr />
 									<ul class="list-group">
 										<li class="list-group-item">Filter books by:</li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByLanguage(language='English')}" th:classappend="${activeEnglish}? 'active'"
 											class="btn btn-default btn-block">English Language</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByLanguage(language='Swahili')}" th:classappend="${activeSwahili}? 'active'"
 											class="btn btn-default btn-block">Swahili Language</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByLanguage(language='Italian')}" th:classappend="${activeItalian}? 'active'"
 											class="btn btn-default btn-block">Italian Language</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/searchByLanguage(language='Spanish')}" th:classappend="${activeSpanish}? 'active'"
 											class="btn btn-default btn-block">Spanish Language</a></li>
-										<li class="list-group-item"><a href=""
+										<li class="list-group-item"><a th:href="@{/bookshelf(language='all')}" th:classappend="${activeAll}? 'active'"
 											class="btn btn-default btn-block">All Languages</a></li>
 									</ul>
 
@@ -129,7 +129,8 @@
 		</div>
 	</div>
 	<!-- end of main container -->
-
+	<div th:replace="common/header :: footer"></div>
+	
 	<div th:replace="common/header :: body-bottom-scripts"></div>
 	<script type="text/javascript">
 		$(document).ready(
@@ -143,7 +144,7 @@
 							});
 					$("#bookList").on('page.at', function() {
 						$('html,body').animation({
-							scrollTop: $('#bookList').offset().top
+							scrollTop : $('#bookList').offset().top
 						}, 200);
 					});
 				});
