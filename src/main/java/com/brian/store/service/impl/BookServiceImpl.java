@@ -62,4 +62,18 @@ public class BookServiceImpl implements BookService {
 		return activeBookList;
 	}
 
+	@Override
+	public List<Book> blurrySearch(String title) {
+		List<Book> bookList = bookRepository.findByTitleContaining(title);
+
+		List<Book> activeBookList = new ArrayList<Book>();
+
+		for (Book book : bookList) {
+			if (book.isActive()) {
+				activeBookList.add(book);
+			}
+		}
+		return activeBookList;
+	}
+
 }

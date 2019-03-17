@@ -12,4 +12,6 @@ public interface BookService {
 	List<Book> findByCategory(String category);
 
 	List<Book> findByLanguage(String language);
+
+	List<Book> blurrySearch(String keyword);
 }
